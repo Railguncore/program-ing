@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+</head>
+<body>
+  <div id="root"></div>
+</body>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script async src="https://ga.jspm.io/npm:es-module-shims@1.7.0/dist/es-module-shims.js"></script>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react?dev",
+    "react-dom/client": "https://esm.sh/react-dom/client?dev"
+  }
+}
+</script>
+<script type="text/babel" data-type="module">
+import React, { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import { useState } from 'react';
+
+
+let nextId = 4;
+let initialArtists = [
+  { id: 0, name: 'Абдулаев Абумуслим Даитбегович' },
+  { id: 1, name: 'Агапенкова Дарья Алексеевна'},
+  { id: 2, name: 'Алуева Алиса Витальевна'},
+  { id: 3, name: 'Вайсберг Елизавета Александровна'}];
+
+let App = function List() {
+  const [artists, setArtists] = useState(initialArtists );
+  const [name, setName] = useState('');
+  return (
+    <>
+      <form action="raspis.html" target="_self">
+        <button>Расписание</button>
+      </form>
+      <h1>Группа ПИ21-1:</h1>
+      <h1>Добавить студента:</h1>
+      <input value={name} onChange={e => setName(e.target.value)} />
+      <button onClick={() => {setArtists([...artists,{ id: nextId++, name: name } ]); }}>Add</button>
+      <ul>
+        {artists.map(artist => (<li key={artist.id}>
+        <input type="checkbox"checked={artist.seen}/>
+        {artist.id+1}{artist.name}{' '}
+        <button onClick={() => {setArtists(artists.filter(a => a.id !== artist.id)); }}>Delete</button>
+          </li>
+        ))}
+      </ul>
+    </>
+  );
+}
+
+
+const root = createRoot(document.getElementById('root'));
+root.render(
+  <StrictMode>
+    <App />
+  </StrictMode>
+);
+</script>
+<style>
+* {box-sizing: border-box;}
+
+body {font-family: sans-serif; margin: 20px;padding: 0;}
+code {font-size: 1.2em;}
+ul {padding-inline-start: 20px;}
+button { margin: 5px; }
+
+html{
+background-image: url(back2.jpg);
+background-repeat: no-repeat;
+background-position: center center;
+background-attachment: fixed;
+-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;
+}
+</style>
+</html>
